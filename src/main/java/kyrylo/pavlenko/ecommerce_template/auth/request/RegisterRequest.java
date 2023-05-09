@@ -1,8 +1,8 @@
-package kyrylo.pavlenko.ecommerce_template.request;
+package kyrylo.pavlenko.ecommerce_template.auth.request;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import kyrylo.pavlenko.ecommerce_template.validation.password.PasswordMatches;
+import kyrylo.pavlenko.ecommerce_template.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,4 +29,6 @@ public class RegisterRequest {
     @NotNull
     @NotEmpty(message = "Email field mustn't be empty")
     private String email;
+
+    private Role role;
 }

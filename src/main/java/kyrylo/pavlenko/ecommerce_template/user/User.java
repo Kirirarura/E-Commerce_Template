@@ -1,9 +1,9 @@
-package kyrylo.pavlenko.ecommerce_template.model;
+package kyrylo.pavlenko.ecommerce_template.user;
 
 import jakarta.persistence.*;
+import kyrylo.pavlenko.ecommerce_template.token.Token;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -19,25 +19,27 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "first_name", nullable = false, length = 20)
-    private String firstName;
-    @Column(name = "last_name", nullable = false, length = 20)
-    private String lastName;
-
-    @Column(nullable = false, unique = true, length = 45)
+    @GeneratedValue
+    private Integer id;
+    private String firstname;
+    private String lastname;
     private String email;
-    @Column(nullable = false, length = 64)
     private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return role.getAuthorities();
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     @Override

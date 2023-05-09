@@ -1,4 +1,4 @@
-package kyrylo.pavlenko.ecommerce_template.request;
+package kyrylo.pavlenko.ecommerce_template.auth.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
